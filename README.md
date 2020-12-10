@@ -1,8 +1,8 @@
 # J0n3sy_Cat
-A Remote Access Trojan (RAT) backdoor executable generator and server project. 
+A Remote Access Trojan (RAT) backdoor executable generator project. 
 *For Educational purposes only
 
-Inpsired by hacking tools such as the Metasploit framework and FatRat, J0n3sy_Cat is a RAT backdoor tool used to generate an executable target file and connect to that target file once activated.
+Inpsired by hacking tools such as the Metasploit framework and FatRat, J0n3sy_Cat is a RAT backdoor tool used to generate an executable trojan file and connect to that file once activated.
 
 FatRat - https://github.com/Screetsec/TheFatRat
 
