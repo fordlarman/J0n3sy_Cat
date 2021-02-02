@@ -12,10 +12,10 @@ Using python modules the application can connect to a target and communicate via
 
 Features:
  - Encrypted communication
- - Screenshot target machine
+ - File Transfer
  - Remote command execution
  - Generate executable
  
 This project is intended to improve my (Python) programming skills, and knowledge within the field of cyber/info security.
 Q: Why J0n3sy_Cat?
-A: Networking programs such as 'netcat' and 'Apache Tomcat' inspired me to call it (something) cat. "Jonesy" is the name of the cat from the film 'Alien'(1979), A favourite of mine.
+A: Networking programs such as 'netcat' and 'Apache Tomcat' inspired me to call it (something) feline related. "Jonesy" is the name of the cat from the film 'Alien'(1979), A favourite of mine.
