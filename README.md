@@ -1,7 +1,5 @@
 # J0n3sy_Cat!
 
-[J_cat](https://user-images.githubusercontent.com/62928781/134868662-c6378395-7b1b-470c-b6e4-7aade8729cfc.png)
-
 A Remote Access Trojan (RAT) backdoor executable generator for MacOS. 
 *For Educational purposes only
 
