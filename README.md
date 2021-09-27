@@ -1,20 +1,20 @@
 # J0n3sy_Cat
-A Remote Access Trojan (RAT) backdoor executable generator project. 
+A Remote Access Trojan (RAT) backdoor executable generator for MacOS. 
 *For Educational purposes only
 
-Inpsired by hacking tools such as the Metasploit framework and FatRat, J0n3sy_Cat is a RAT backdoor tool used to generate an executable trojan file and connect to that file once activated.
+Inpsired by hacking tools such as the Metasploit framework and FatRat, J0n3sy_Cat is a RAT backdoor scripting tool used to generate a .dmg trojan file allowing users to connect to target machines once deployed.
 
 FatRat - https://github.com/Screetsec/TheFatRat
 
 Metasploit - https://www.metasploit.com/
 
-Using python modules the application can connect to a target and communicate via a subprocess allowing the attacker to execute commands remotely an undetected. To hide communications J0n3sy_Cat uses a single symmetric encryption key, once a backdoor is compromised a new key can be generated for future exploits.
+This script generates a phony .dmg package that once installed will launch a hidden tcp connection link. Once the attacker is confident the exploit has been dployed, they can connect to the target allowing them to execute commands remotely an undetected. To hide communications J0n3sy_Cat uses a single symmetric encryption key to ensure all traffic is unreadable, once a backdoor is compromised a new key can be generated for future exploits.
 
 Features:
  - Encrypted communication
  - File Transfer
  - Remote command execution
- - Generate executable
+ - Generate .dmg
  
 This project is intended to improve my (Python) programming skills, and knowledge within the field of cyber/info security.
 Q: Why J0n3sy_Cat?
