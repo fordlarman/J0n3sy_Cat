@@ -1,0 +1,35 @@
+JC--LOG FILE: 2021-10-13 22:19:57.456018
+Shell>>>whoami
+fordlarman
+
+Shell>>>ls
+J0n3sy_Cat.py
+J_cat.icns
+Jonesy_cat.key
+README.md
+build_script.sh
+exec_example.py
+logs
+requirements.txt
+
+Shell>>>cacat requirement.txt
+/bin/sh: cacat: command not found
+
+Shell>>>cat requirements.txt
+pathlib~=1.0.1
+cffi~=1.14.4
+Pillow~=7.1.2
+pip~=20.2.2
+cryptography~=3.2.1
+six~=1.15.0
+pycparser~=2.20
+setuptools~=41.2.0
+docutils~=0.15.2
+Shell>>>echo "#!/bin/bash" > script.sh
+
+Shell>>>echo "echo 'this script works!'" >> script.sh
+
+Shell>>>sh script.sh
+this script works!
+
+***Transmission Ended***

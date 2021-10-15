@@ -11,7 +11,7 @@ import pickle
 
 
 def get_key():
-    key = b'TYbuvP6D5CdEpmxBfW8ligUfQJ6iUx45OzUWN93e7Bg='
+    key = b'NOyZtZKjp5c40ivSuuJt2p-OynIpjpdbjEdViIVmWXY='
     return key
 
 
@@ -55,8 +55,8 @@ def main():
         # print("[+] Client on...")
 
         '#### server address ####'
-        ip = '192.168.1.6'
-        port = 8888
+        ip = '192.168.1.104'
+        port = 6666
 
         'connect socket'
         s.connect((ip, port))
